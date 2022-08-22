@@ -4,6 +4,21 @@ services:
     build: ./example/src/.
     ports:
     - "3000:3000"
+  nginx-proxy:
+    build: ./nginx/.
+    ports:
+    - 80:80 
+    volumes:
+    - ./nginx/logs:/var/log/nginx/
+    depends_on:
+    - example
+  nginx-exporter:
+    build: ./nginx-exporter
+    volumes:
+    - ./nginx/logs:/mnt
+    ports:
+    - 4040:4040
+    command: ["-config-file", "/etc/prometheus-nginxlog-exporter/config.yaml"]
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor

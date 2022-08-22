@@ -8,7 +8,9 @@ server.use(express.json());
 let isHighload = false;
 
 server.get("/metrics", (req, res) => {
-    res.send(`example_random_metric: ${Math.random() * 5 + (isHighload ? 5 : 0)}`);
+    setTimeout(() => {
+        res.send(`example_random_metric: ${Math.random() * 5 + (isHighload ? 5 : 0)}`);
+    }, Math.random() * (isHighload ? 4000 : 1000));
 });
 
 server.post("/highload", (req, res) => {
