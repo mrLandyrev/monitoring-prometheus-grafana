@@ -2,20 +2,17 @@ global:
   scrape_interval:     5s
   evaluation_interval: 5s
   external_labels:
-      monitor: 'codelab-monitor'
+    monitor: codelab-monitor
 
 rule_files:
 
 scrape_configs:
-  - job_name: 'docker'
+  - job_name: example
     static_configs:
-      - targets: ['172.17.0.1:9323']
-    
-  - job_name: 'example'
-    static_configs:
-      - targets: ['example:3000']
+      - targets:
+        - example:3000
 
   - job_name: cadvisor
     static_configs:
-    - targets:
-      - cadvisor:8080
+      - targets:
+        - cadvisor:8080
